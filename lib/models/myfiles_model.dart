@@ -52,13 +52,13 @@ List demoMyFiles = [
   ),
   CloudStorageInfo(
     icon: const Icon(
-      Icons.insert_drive_file,
-      color: Color(0xFF007EE5),
+      Icons.folder,
+      color: Color(0xFFF33A6A),
     ),
-    title: "Documents",
+    title: "My Files",
     numOfFiles: 5328,
     totalStorage: "7.3 GB",
-    color: const Color(0xFF007EE5),
+    color: const Color(0xFFF33A6A),
     percentage: 75,
   ),
 ];

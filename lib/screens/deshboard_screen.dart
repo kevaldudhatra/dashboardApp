@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_demo/responsive.dart';
+import 'package:flutter_web_demo/screens/chart.dart';
 import 'package:flutter_web_demo/screens/drawer_screen.dart';
 import '../models/myfiles_model.dart';
 
@@ -20,7 +21,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       key: _scaffoldKey,
       drawer: const DrawerScreen(),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(15),
         child: Column(
           children: [
             Row(
@@ -53,8 +54,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 ElevatedButton.icon(
-
-
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                   ),
@@ -77,6 +76,104 @@ class _DashboardScreenState extends State<DashboardScreen> {
               desktop: FileInfoCardGridView(
                 childAspectRatio: _size.width < 1400 ? 1.1 : 1.4,
               ),
+            ),
+            const SizedBox(height: 35),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const [
+                    Text(
+                      "Storage Details",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(height: 15),
+                    SizedBox(width: 250, child: Chart()),
+                  ],
+                ),
+                const SizedBox(width: 20),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      StorageInfoCard(
+                        icon: Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF2697FF).withOpacity(0.1),
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              Icons.insert_drive_file,
+                              color: Color(0xFF2697FF),
+                            ),
+                          ),
+                        ),
+                        title: "Documents Files",
+                        amountOfFiles: "1.3GB",
+                        numOfFiles: 1022,
+                      ),
+                      StorageInfoCard(
+                        icon: Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFFA113).withOpacity(0.1),
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              Icons.insert_drive_file,
+                              color: Color(0xFFFFA113),
+                            ),
+                          ),
+                        ),
+                        title: "Media Files",
+                        amountOfFiles: "15.3GB",
+                        numOfFiles: 1328,
+                      ),
+                      StorageInfoCard(
+                        icon: Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFA4CDFF).withOpacity(0.1),
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              Icons.insert_drive_file,
+                              color: Color(0xFFA4CDFF),
+                            ),
+                          ),
+                        ),
+                        title: "Other Files",
+                        amountOfFiles: "1.3GB",
+                        numOfFiles: 1500,
+                      ),
+                      StorageInfoCard(
+                        icon: Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFF33A6A).withOpacity(0.1),
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              Icons.insert_drive_file,
+                              color: Color(0xFFF33A6A),
+                            ),
+                          ),
+                        ),
+                        title: "Unknown",
+                        amountOfFiles: "1.3GB",
+                        numOfFiles: 140,
+                      ),
+                    ],
+                  ),
+                )
+              ],
             ),
           ],
         ),
@@ -271,6 +368,63 @@ class ProgressLine extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class StorageInfoCard extends StatelessWidget {
+  const StorageInfoCard({
+    Key? key,
+    required this.title,
+    required this.icon,
+    required this.amountOfFiles,
+    required this.numOfFiles,
+  }) : super(key: key);
+
+  final String title, amountOfFiles;
+  final Widget icon;
+  final int numOfFiles;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 15),
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        border: Border.all(width: 2, color: const Color(0xFF2697FF).withOpacity(0.15)),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(15),
+        ),
+      ),
+      child: Row(
+        children: [
+          SizedBox(
+            height: 40,
+            width: 40,
+            child: icon,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    "$numOfFiles Files",
+                    style: Theme.of(context).textTheme.caption!.copyWith(color: Colors.white70),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Text(amountOfFiles)
+        ],
+      ),
     );
   }
 }
